@@ -28,7 +28,9 @@ config :exsftpd, Exsftpd.Server,
   user_auth_dir: "/tmp/users",
   #Where to look for ssh host keys
   system_dir: "/tmp/ssh",
-  event_handler: fn(event) -> IO.puts("Event: #{inspect event} ") end
+  event_handler: fn(event) -> IO.puts("Event: #{inspect event} ") end,
+  modify_algorithms: []
+
 
 ```
 

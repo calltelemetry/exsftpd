@@ -71,6 +71,14 @@ defmodule Exsftpd.Server do
     env[:user_root_dir]
   end
 
+  defp modify_algorithms(env) do
+    if !env[:modify_algorithms] do
+      raise "Missing modify_algorithms"
+    end
+
+    env[:modify_algorithms]
+  end
+
   defp user_auth_dir(env) do
     if !env[:user_auth_dir] && !env[:user_root_dir] do
       raise "Missing user_root_dir or user_auth_dir"
@@ -107,6 +115,7 @@ defmodule Exsftpd.Server do
 
     daemon_opts = [
       system_dir: system_dir(options),
+      modify_algorithms: modify_algorithms(options),
       shell: &dummy_shell/2,
       subsystems: [
         Exsftpd.SftpdChannel.subsystem_spec(
